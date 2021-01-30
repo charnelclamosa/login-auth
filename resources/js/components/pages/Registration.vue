@@ -3,19 +3,19 @@
     <v-container fill-height>
         <v-row justify="center">
             <v-card width="500" elevation="12">
-                <v-card-title>Login</v-card-title>
+                <v-card-title>Register</v-card-title>
                 <v-card-text>
                     <v-row dense>
                         <v-col class="mx-2 mt-4">
-                            <v-text-field dense outlined label="Email" v-model="credentials.email" @keyup.enter="handleLogin()"></v-text-field>
-                            <v-text-field dense outlined label="Password" type="password" v-model="credentials.password" @keyup.enter="handleLogin()"></v-text-field>
+                            <v-text-field dense outlined label="Email" v-model="credentials.email"></v-text-field>
+                            <v-text-field dense outlined label="Password" type="password" v-model="credentials.password"></v-text-field>
                         </v-col>
                     </v-row>
                 </v-card-text>
                 <v-card-actions class="mt-n5 mx-3">
-                    <v-btn text small class="my-auto">Don't have an account?</v-btn>
+                    <v-btn text small class="my-auto">I already have an account</v-btn>
                     <v-spacer></v-spacer>
-                    <v-btn color="primary" @click="handleLogin()">Login</v-btn>
+                    <v-btn color="primary">Register</v-btn>
                 </v-card-actions>
             </v-card>
         </v-row>
@@ -47,7 +47,7 @@ export default {
                     axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`;
                 })
                 .catch(errors => {
-                    console.log(errors);
+                    console.log(error);
                 });
         },
         logout() {

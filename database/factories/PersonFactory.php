@@ -25,6 +25,7 @@ class PersonFactory extends Factory
         return [
             'name' => $this->faker->name,
             'address' => $this->faker->address,
+            'birth_date' => $this->faker->dateTimeBetween($startDate = '-70 years', $endDate = 'now', $timezone = null),
             'phone_number' => $this->faker->phoneNumber
         ];
     }

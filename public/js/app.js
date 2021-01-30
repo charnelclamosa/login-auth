@@ -1894,22 +1894,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -1932,7 +1916,7 @@ __webpack_require__.r(__webpack_exports__);
         _this.token = res.data;
         (axios__WEBPACK_IMPORTED_MODULE_0___default().defaults.headers.common.Authorization) = "Bearer ".concat(_this.token);
       })["catch"](function (errors) {
-        console.log(error);
+        console.log(errors);
       });
     },
     logout: function logout() {
@@ -20404,6 +20388,8 @@ var render = function() {
                 "v-card",
                 { attrs: { width: "500", elevation: "12" } },
                 [
+                  _c("v-card-title", [_vm._v("Login")]),
+                  _vm._v(" "),
                   _c(
                     "v-card-text",
                     [
@@ -20491,35 +20477,18 @@ var render = function() {
                   _vm._v(" "),
                   _c(
                     "v-card-actions",
-                    { staticClass: "mt-n5" },
+                    { staticClass: "mt-n5 mx-3" },
                     [
                       _c(
                         "v-btn",
                         {
-                          attrs: { outlined: "", color: "secondary" },
-                          on: {
-                            click: function($event) {
-                              return _vm.viewPeople()
-                            }
-                          }
+                          staticClass: "my-auto",
+                          attrs: { text: "", small: "" }
                         },
-                        [_vm._v("People")]
+                        [_vm._v("Don't have an account?")]
                       ),
                       _vm._v(" "),
                       _c("v-spacer"),
-                      _vm._v(" "),
-                      _c(
-                        "v-btn",
-                        {
-                          attrs: { outlined: "", color: "error" },
-                          on: {
-                            click: function($event) {
-                              return _vm.logout()
-                            }
-                          }
-                        },
-                        [_vm._v("Logout")]
-                      ),
                       _vm._v(" "),
                       _c(
                         "v-btn",

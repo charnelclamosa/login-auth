@@ -17,31 +17,16 @@ class AuthController extends Controller
             'password' => 'required|string|min:5'
         ]);
         if($validator->fails()) {
-            return response()->json([
-                'errors' => $validator->errors()->all(),
-                'status' => 422
-            ]);
+            return response()->json(['errors' => $validator->errors()->all()], 422);
         }
         $user = User::where('email', $request->email)->first();
-        if($user) {
-            if(Hash::check($request->password, $user->password)) {
-                return $user->createToken($user->name)->plainTextToken;
-                // return response()->json([
-                //     'token' => $token,
-                //     'status' => 200
-                // ]);
-            } else {
-                $response = ['message' => 'Password mismatch.'];
-                return response()->json([
-                    'message' => 'Password mismatch.',
-                    'status' => 401
-                ]);
-            }
-        } else {
+        if($user || Hash::check($request->password, $user->password)) {
+            $token = $user->createToken($user->name)->plainTextToken;
             return response()->json([
-                'message' => 'User does not exist',
-                'status' => 401
-            ]);
+                'token' => $token
+            ], 201);
+        } else {
+            return response()->json(['message' => 'User does not exist'], 404);
         }
     }
 
