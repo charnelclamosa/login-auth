@@ -18,9 +18,10 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::post('/login', 'AuthController@login')->middleware('throttle: 5, 1');
+Route::post('login', 'AuthController@login');
+Route::post('users', 'UserController@store');
 
 Route::middleware(['auth:sanctum'])->group(function() {
-    Route::get('/persons', 'PersonController@index');
-    Route::post('/logout', 'AuthController@logout');
+    Route::get('persons', 'PersonController@index');
+    Route::post('logout', 'AuthController@logout');
 });

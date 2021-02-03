@@ -3,6 +3,8 @@ import VueRouter from 'vue-router'
 // import store from './store'
 import Home from './components/pages/TheHome'
 import Login from './components/pages/TheLogin'
+import Registration from './components/pages/Registration'
+import Navigation from './components/pages/TheNavBar'
 
 
 Vue.use(VueRouter)
@@ -20,9 +22,17 @@ const router = new VueRouter({
             component: Login
         },
         {
+            path: '/registration',
+            name: 'registration',
+            component: Registration
+        },
+        {
             path: '/home',
             name: 'home',
-            component: Home
+            components: {
+                default: Home,
+                nav: Navigation
+            }
         }
     ]
 })

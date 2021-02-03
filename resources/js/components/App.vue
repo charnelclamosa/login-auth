@@ -1,5 +1,6 @@
 <template>
 <v-app>
+    <router-view name="nav"></router-view>
     <transition name="fade">
         <router-view></router-view>
     </transition>

@@ -13,7 +13,7 @@
                     </v-row>
                 </v-card-text>
                 <v-card-actions class="mt-n5 mx-3">
-                    <v-btn text small class="my-auto">Don't have an account?</v-btn>
+                    <v-btn text small class="my-auto" @click="goToRegistration()">Don't have an account?</v-btn>
                     <v-spacer></v-spacer>
                     <v-btn color="primary" @click="handleLogin()">Login</v-btn>
                 </v-card-actions>
@@ -43,29 +43,20 @@ export default {
                 })
                 .then(res => {
                     localStorage.setItem('token', res.data)
-                    this.token = res.data
-                    axios.defaults.headers.common['Authorization'] = `Bearer ${this.token}`;
+                    this.$router.push('/home').catch(error => {console.log(error)})
                 })
                 .catch(errors => {
                     console.log(errors);
                 });
+        },
+        goToRegistration() {
+            this.$router.push({name: 'registration'}).catch(error => {console.log(error)})
         },
         logout() {
             axios.post('api/logout').then(res => {
                 localStorage.removeItem('token')
             })
         },
-        viewPeople() {
-            // API
-            axios
-                .get("api/persons")
-                .then(res => {
-                    console.log(res);
-                })
-                .catch(errors => {
-                    console.log(errors);
-                });
-        }
     }
 };
 </script>
