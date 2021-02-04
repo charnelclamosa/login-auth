@@ -8,9 +8,6 @@
         <v-spacer />
         <!-- Navbar links -->
         <v-toolbar-items>
-            <v-btn x-small light text v-for="item in routes" :key="item.name" :to="item.route">
-                {{item.name}}
-            </v-btn>
             <v-tooltip bottom>
                 <template v-slot:activator="{ on, attrs }">
                     <v-btn x-small icon color="error" class="px-6" v-bind="attrs" v-on="on" @click="logout()">

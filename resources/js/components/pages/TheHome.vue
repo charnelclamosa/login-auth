@@ -4,7 +4,7 @@
         <v-card elevation="12">
             <v-card-title>Persons table</v-card-title>
             <v-card-text>
-                <v-simple-table>
+                <v-simple-table class="my-table">
                     <template v-slot:default>
                         <thead>
                             <tr>
@@ -58,3 +58,8 @@ export default {
     },
 }
 </script>
+<style scoped>
+.my-table tbody tr:nth-of-type(even) {
+    background-color: #E0E0E0;
+}
+</style>
