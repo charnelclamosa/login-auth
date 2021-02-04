@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use App\Models\Person;
 
 class PersonTest extends TestCase
 {
@@ -13,7 +14,7 @@ class PersonTest extends TestCase
      *
      * @return void
      */
-    public function test_example()
+    public function test_get_persons_data()
     {
         $response = $this->get('persons');
 

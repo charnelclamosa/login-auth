@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('login', 'AuthController@login');
 Route::post('users', 'UserController@store');
+Route::get('users', 'UserController@index');
 
 Route::middleware(['auth:sanctum'])->group(function() {
     Route::get('persons', 'PersonController@index');
