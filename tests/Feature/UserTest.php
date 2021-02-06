@@ -3,48 +3,66 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use Illuminate\Support\Facades\Hash;
-use Faker\Generator as Faker;
+use App\Models\User;
+use Illuminate\Foundation\Testing\WithFaker;
 
 class UserTest extends TestCase
 {
-    use WithFaker;
+    use RefreshDatabase, WithFaker;
     /**
      * A basic feature test example.
      *
      * @return void
      */
-    // public function test_can_register_user() {
-    //     $credentials = [
-    //         'name' => $this->faker->name,
-    //         'email' => $this->faker->unique()->safeEmail,
-    //         'password' => Hash::make('password'),
-    //         'role' => 2
-    //     ];
-    //     $response = $this->json('POST', '/api/users', $credentials);
-    //     $response->assertStatus(201);
-    // }
-    public function test_email_already_taken() {
-        $duplicate = $this->json('POST', '/api/users', [
-            'name' =>  $this->faker->name,
+    /* @test */
+    public function test_can_register_user() {
+        $credentials = [
+            'name' => 'Charnel S. Clamosa',
             'email' => 'admin@gmail.com',
-            'password' => Hash::make('password')
+            'password' => Hash::make('password'),
+            'role' => 2
+        ];
+        $this->post('api/users', $credentials)->assertStatus(201);
+        $this->assertDatabasehas('users', [
+            'name' => 'Charnel S. Clamosa',
+            'email' => 'admin@gmail.com'
             ]);
-            $duplicate->assertStatus(400);
     }
+    /* @test */
+    public function test_email_already_taken() {
+        $first = [
+            'name' =>  'Not a duplicate',
+            'email' => 'duplicate@gmail.com',
+            'password' => Hash::make('password'),
+            'role' => 2
+        ];
+        $this->post('api/users', $first)->assertStatus(201);
+        $this->assertDatabasehas('users', [
+            'name' => 'Not a duplicate',
+            'email' => 'duplicate@gmail.com'
+            ]);
 
-    // public function test_can_get_users() {
-    //     $response = $this->json('GET', 'api/users');
-    //     $response->assertStatus(200);
-    //     $response->assertJsonStructure([
-    //         [
-    //             'id',
-    //             'name',
-    //             'email',
-    //             'role'
-    //         ]
-    //     ]);
-    // }
+        $second = [
+            'name' =>  'Duplicate',
+            'email' => 'duplicate@gmail.com',
+            'password' => Hash::make('password'),
+            'role' => 2
+        ];
+        $this->post('api/users', $second)->assertStatus(400);
+    }
+    /* @test */
+    public function test_registered_user_can_login() {
+        $user = User::factory()->create();
+        $this->post('api/login', ['email' => $user->email, 'password' => 'password'])->assertStatus(201);
+    }
+    /* @test */
+    public function test_not_registered_user_cant_login() {
+        $credentials = [
+            'email' => 'admin@gmail.com',
+            'password' => 'password',
+        ];
+        $this->post('api/login', $credentials)->assertStatus(404);
+    }
 }
